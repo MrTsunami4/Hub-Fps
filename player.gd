@@ -4,6 +4,8 @@ extends CharacterBody3D
 @onready var anim_player = $AnimationPlayer
 @onready var flash = $Camera3D/Pistol/MuzzleFlash
 @onready var ray_cast = $Camera3D/RayCast3D
+@onready var sound = $Camera3D/Pistol/Sound
+@onready var decal = preload("res://decal_scene.tscn")
 
 signal health_changed(health_value)
 
@@ -33,8 +35,18 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("shoot") and anim_player.current_animation != "shoot":
 		play_shoot_effects.rpc()
 		if ray_cast.is_colliding():
-			var hit_player = ray_cast.get_collider()
-			hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
+			var hit = ray_cast.get_collider()
+			var normal = ray_cast.get_collision_normal()
+			var point = ray_cast.get_collision_point()
+			var dec_in = decal.instantiate()
+			hit.add_child(dec_in)
+			dec_in.global_transform.origin = point
+			if normal == Vector3.DOWN:
+				dec_in.rotation_degrees.x = 90
+			elif normal != Vector3.UP:
+				dec_in.look_at(point - normal, Vector3(0,1,0))
+			if hit is CharacterBody3D:
+				hit.receive_damage.rpc_id(hit.get_multiplayer_authority())
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -73,6 +85,7 @@ func play_shoot_effects():
 	anim_player.play("shoot")
 	flash.restart()
 	flash.emitting = true
+	sound.play()
 
 @rpc("any_peer")
 func receive_damage():

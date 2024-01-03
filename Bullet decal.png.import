@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnbkha2kplgv1"
-path.s3tc="res://.godot/imported/scorch_01.png-d4548cbfbb7cf4e7101ff79a5d5b5ea3.s3tc.ctex"
+uid="uid://cgndd42didlvo"
+path.s3tc="res://.godot/imported/Bullet decal.png-64d33397dd5128b8fd8815c6af769590.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/scorch_01.png"
-dest_files=["res://.godot/imported/scorch_01.png-d4548cbfbb7cf4e7101ff79a5d5b5ea3.s3tc.ctex"]
+source_file="res://Bullet decal.png"
+dest_files=["res://.godot/imported/Bullet decal.png-64d33397dd5128b8fd8815c6af769590.s3tc.ctex"]
 
 [params]
 
