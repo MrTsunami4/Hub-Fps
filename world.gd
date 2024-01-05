@@ -36,7 +36,10 @@ func _on_join_button_pressed():
 	menu.hide()
 	hud.show()
 	
-	enet_peer.create_client(entry.text, PORT)
+	if entry.text.is_empty():
+		enet_peer.create_client("localhost",PORT)
+	else:
+		enet_peer.create_client(entry.text, PORT)
 	multiplayer.multiplayer_peer = enet_peer
 
 func add_player(peer_id):
